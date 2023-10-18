@@ -1,4 +1,4 @@
-import Bullet from "./Bullet.js";
+import { createBullet } from "./Bullet.js";
 
 export default class BulletController {
     bullets = [];
@@ -13,7 +13,8 @@ export default class BulletController {
             // if (this.bullets.length < 5) {
             //     this.bullets.push(new Bullet(x, y, speed, damage));
             // }
-            this.bullets.push(new Bullet(x, y, speed, damage));
+            let newBullet = createBullet(x, y, speed, damage);
+            this.bullets.push(newBullet);
             this.timeTillNextBullet = delay;
         }
         this.timeTillNextBullet--;
@@ -21,6 +22,7 @@ export default class BulletController {
 
     draw(context) {
         this.bullets.forEach(bullet => {
+            console.log("Shooting");
             if (this.isBulletOffScreen(bullet)) {
                 const index = this.bullets.indexOf(bullet);
                 this.bullets.splice(index, 1);
