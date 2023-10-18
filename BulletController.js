@@ -9,8 +9,10 @@ export default class BulletController {
     }
 
     shoot(x, y, speed, damage, delay) {
-        if (this.timeTillNextBullet <=0 ) {
-            this.bullets.push(new Bullet(x, y, speed, damage));
+        if (this.timeTillNextBullet <= 0) {
+            if (this.bullets.length < 5) {
+                this.bullets.push(new Bullet(x, y, speed, damage));
+            }
             this.timeTillNextBullet = delay;
         }
         this.timeTillNextBullet--;
