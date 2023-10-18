@@ -21,7 +21,7 @@ export default class Player {
     }
 
     shoot() {
-        if (this.shooPressed) {
+        if (this.shootPressed) {
             const speed = 10;
             const delay = 7;
             const damage = 1;
@@ -33,7 +33,6 @@ export default class Player {
 
     move() {
         if (this.downPressed) {
-            console.log("down");
             this.y += this.speed;
         }
         if (this.upPressed) {
@@ -48,39 +47,22 @@ export default class Player {
     }
 
     keydown = (e) => {
-        if(e.code === 'ArrowUp') {
-            console.log("arriba");
-            this.upPressed = true;
-        }
-        if(e.code === 'ArrowDown') {
-            this.downPressed = true;
-        }
-        if(e.code === 'ArrowLeft') {
-            this.leftPressed = true;
-        }
-        if(e.code === 'ArrowRight') {
-            this.rightPressed = true;
-        }
-        if (e.code === 'Space') {
-            this.shooPressed = true;
+        switch(e.code) {
+            case 'ArrowUp':     this.upPressed = true;    break;
+            case 'ArrowDown':   this.downPressed = true;  break;
+            case 'ArrowLeft':   this.leftPressed = true;  break;
+            case 'ArrowRight':  this.rightPressed = true; break;
+            case 'Space':       this.shootPressed = true; break;
         }
     }
 
     keyup = (e) => {
-        if(e.code === 'ArrowUp') {
-            this.upPressed = false;
-        }
-        if(e.code === 'ArrowDown') {
-            this.downPressed = false;
-        }
-        if(e.code === 'ArrowLeft') {
-            this.leftPressed = false;
-        }
-        if(e.code === 'ArrowRight') {
-            this.rightPressed = false;
-        }
-        if (e.code === 'Space') {
-            this.shooPressed = false;
+        switch(e.code) {
+            case 'ArrowUp':     this.upPressed = false;    break;
+            case 'ArrowDown':   this.downPressed = false;  break;
+            case 'ArrowLeft':   this.leftPressed = false;  break;
+            case 'ArrowRight':  this.rightPressed = false; break;
+            case 'Space':       this.shootPressed = false; break;
         }        
     }
 }
