@@ -26,6 +26,17 @@ export default class BulletController {
         );
     }
 
+    collideWith(enemy) {
+        return this.bullets.some(bullet => {
+            if (bullet.collideWith(enemy)) {
+                const index = this.bullets.indexOf(bullet);
+                this.bullets.splice(index, 1);
+                return true;
+            }
+            return false;
+        })
+    }
+
     isBulletOffScreen(bullet) {
         return bullet.y <= -bullet.height;
     }

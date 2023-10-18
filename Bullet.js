@@ -32,4 +32,17 @@ export default class Bullet {
         this.y -= this.speed;
         context.fillRect(this.x, this.y, this.width, this.height);
     }
+
+    collideWith(enemy) {
+        if (
+            this.x < enemy.x + enemy.width && 
+            this.x + this.width > enemy.x &&
+            this.y < enemy.y + enemy.height &&
+            this.y + this.height > enemy.y
+        ) {
+            enemy.takeDamage(this.damage);
+            return true;
+        }
+        return false;
+    }
 }

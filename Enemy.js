@@ -24,4 +24,8 @@ export default class Enemy {
         context.font = '25px Arial';
         context.fillText(this.health, (this.x + this.width / 3.5), (this.y + this.height / 1.5));
     }
+
+    takeDamage(damage) {
+        this.health -= damage;
+    }
 }
