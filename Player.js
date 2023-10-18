@@ -2,13 +2,13 @@ export default class Player {
     constructor(x, y, bulletController) {
         this.x = x;
         this.y = y;
+        this.speed = 4;
         this.width = 50;
         this.height = 50;
-        this.speed = 4;
         this.bulletController = bulletController;
 
-        document.addEventListener('keydown', this.keydown);
         document.addEventListener('keyup', this.keyup);
+        document.addEventListener('keydown', this.keydown);
     }
 
     draw(context) {
@@ -22,7 +22,7 @@ export default class Player {
 
     shoot() {
         if (this.shooPressed) {
-            const speed = 5;
+            const speed = 10;
             const delay = 7;
             const damage = 1;
             const bulletX = this.x + this.width / 2;
