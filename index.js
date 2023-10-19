@@ -1,6 +1,6 @@
 import Player from "./Player.js";
 import { createEnemy } from "./Enemy.js";
-import BulletController from "./BulletController.js";
+import { createBulletController } from "./BulletController2.js";
 
 const canvas = document.getElementById("gameboard");
 const context = canvas.getContext("2d");
@@ -8,7 +8,7 @@ const context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const bulletController = new BulletController(canvas);
+const bulletController = createBulletController(canvas);
 const player = new Player(canvas.width / 2.2, canvas.height / 1.3, bulletController);
 
 const enemies = [
