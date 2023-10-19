@@ -8,7 +8,7 @@ const context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const bulletController = createBulletController(canvas);
+const bulletController = createBulletController();
 const player = createPlayer(canvas.width / 2.2, canvas.height / 1.3, bulletController);
 
 const enemies = [
@@ -43,7 +43,7 @@ function gameLoop() {
 }
 
 function setCommonStyle() {
-    context.shadowColor = '#D53';
+     context.shadowColor = '#D53';
     context.shadowBlur = 20;
     context.lineJoin = 'bevel';
     context.lineWidth = 5;

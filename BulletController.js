@@ -2,7 +2,6 @@ import { createBullet } from "./Bullet.js";
 
 let BulletController2 = {
     bullets: [],
-    canvas: null,
     timeTillNextBullet: 0,
 
     shoot: function (x, y, speed, damage, delay) {
@@ -40,8 +39,7 @@ let BulletController2 = {
     }
 }
 
-export function createBulletController(canvas) {
+export function createBulletController() {
     let bulleController = Object.create(BulletController2);
-    bulleController.canvas = canvas;
     return bulleController;
 }
