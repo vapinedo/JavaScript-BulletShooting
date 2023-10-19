@@ -1,39 +1,19 @@
-export default class Bullet {
-    // colors = [
-    //     'red',
-    //     'blue',
-    //     'red',
-    //     'green',
-    //     'white',
-    //     'yellow',
-    //     'orange',
-    //     'purple',
-    //     'white',
-    //     'pink',
-    //     'brown',
-    //     'grey',
-    // ];
+export let Bullet = {
+    x: 50,
+    y: 100,
+    width: 5,
+    speed: 5,
+    damage: 1,
+    height: 15,
+    color: 'blue',
 
-    constructor(x, y, speed, damage) {
-
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
-        this.damage = damage;
-
-        this.width = 5;
-        this.height = 15;
-        this.color = 'blue';
-        // this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
-    }
-
-    draw(context) {
+    draw: function (context) {
         context.fillStyle = this.color;
         this.y -= this.speed;
         context.fillRect(this.x, this.y, this.width, this.height);
-    }
+    },
 
-    collideWith(enemy) {
+    collideWith: function(enemy) {
         if (
             this.x < enemy.x + enemy.width && 
             this.x + this.width > enemy.x &&
@@ -44,5 +24,14 @@ export default class Bullet {
             return true;
         }
         return false;
-    }
+    }    
+};
+
+export function createBullet(x, y, speed, damage) {
+    let bullet = Object.create(Bullet);
+    bullet.x = x;
+    bullet.y = y;            
+    bullet.speed = speed;
+    bullet.damage = damage;
+    return bullet;
 }

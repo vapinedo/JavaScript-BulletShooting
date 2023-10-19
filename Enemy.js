@@ -1,14 +1,12 @@
-export default class Enemy {
-    constructor(x, y, color, health) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.health = health;
-        this.width = 50;
-        this.height = 50;        
-    }
+let Enemy = {
+    x: 0,
+    y: 0,
+    health: 1,
+    width: 50,
+    height: 50,        
+    color: 'red',
 
-    draw(context) {
+    draw: function (context) {
         context.fillStyle = this.color;
         if (this.health > 1) {
             context.strokeStyle = 'white';
@@ -23,9 +21,18 @@ export default class Enemy {
         context.fillStyle = 'black';
         context.font = '25px Arial';
         context.fillText(this.health, (this.x + this.width / 3.5), (this.y + this.height / 1.5));
-    }
+    },
 
-    takeDamage(damage) {
+    takeDamage: function (damage) {
         this.health -= damage;
-    }
+    }    
+}
+
+export function createEnemy(x, y, color, health) {
+    let enemy = Object.create(Enemy);
+    enemy.x = x;
+    enemy.y = y;            
+    enemy.color = color;
+    enemy.health = health;
+    return enemy;
 }

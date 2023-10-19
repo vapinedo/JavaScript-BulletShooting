@@ -1,39 +1,39 @@
-export default class Player {
-    constructor(x, y, bulletController) {
-        this.x = x;
-        this.y = y;
-        this.width = 50;
-        this.height = 50;
-        this.speed = 4;
-        this.bulletController = bulletController;
+let Player = {
+    x: 0,
+    y: 0,
+    speed: 4,
+    width: 50,
+    height: 50,
+    bulletController: null,
 
-        document.addEventListener('keydown', this.keydown);
-        document.addEventListener('keyup', this.keyup);
-    }
+    upPressed: false,
+    downPressed: false,
+    leftPressed: false,
+    rightPressed: false,
+    shootPressed: false,
 
-    draw(context) {
+    draw: function (context) {
         this.move();
         context.strokeStyle = 'yellow';
         context.fillStyle = 'black';
         context.strokeRect(this.x, this.y, this.width, this.height);
         context.fillRect(this.x, this.y, this.width, this.height);
         this.shoot();
-    }
+    },
 
-    shoot() {
-        if (this.shooPressed) {
-            const speed = 5;
+    shoot: function () {
+        if (this.shootPressed) {
+            const speed = 10;
             const delay = 7;
             const damage = 1;
             const bulletX = this.x + this.width / 2;
             const bulletY = this.y;
             this.bulletController.shoot(bulletX, bulletY, speed, damage, delay);
         }
-    }
+    },
 
-    move() {
+    move: function () {
         if (this.downPressed) {
-            console.log("down");
             this.y += this.speed;
         }
         if (this.upPressed) {
@@ -45,42 +45,36 @@ export default class Player {
         if (this.rightPressed) {
             this.x += this.speed;
         }
-    }
+    },
 
-    keydown = (e) => {
-        if(e.code === 'ArrowUp') {
-            console.log("arriba");
-            this.upPressed = true;
+    keydown: function (e, player) {
+        switch(e.code) {
+            case 'ArrowUp':    player.upPressed = true;    break;
+            case 'ArrowDown':  player.downPressed = true;  break;
+            case 'ArrowLeft':  player.leftPressed = true;  break;
+            case 'ArrowRight': player.rightPressed = true; break;
+            case 'Space':      player.shootPressed = true; break;
         }
-        if(e.code === 'ArrowDown') {
-            this.downPressed = true;
-        }
-        if(e.code === 'ArrowLeft') {
-            this.leftPressed = true;
-        }
-        if(e.code === 'ArrowRight') {
-            this.rightPressed = true;
-        }
-        if (e.code === 'Space') {
-            this.shooPressed = true;
-        }
-    }
+    },
 
-    keyup = (e) => {
-        if(e.code === 'ArrowUp') {
-            this.upPressed = false;
-        }
-        if(e.code === 'ArrowDown') {
-            this.downPressed = false;
-        }
-        if(e.code === 'ArrowLeft') {
-            this.leftPressed = false;
-        }
-        if(e.code === 'ArrowRight') {
-            this.rightPressed = false;
-        }
-        if (e.code === 'Space') {
-            this.shooPressed = false;
+    keyup: function (e, player) {
+        switch(e.code) {
+            case 'ArrowUp':    player.upPressed = false;    break;
+            case 'ArrowDown':  player.downPressed = false;  break;
+            case 'ArrowLeft':  player.leftPressed = false;  break;
+            case 'ArrowRight': player.rightPressed = false; break;
+            case 'Space':      player.shootPressed = false; break;
         }        
     }
+}
+
+export function createPlayer(x, y, bulletController) {
+    let player = Object.create(Player);
+    player.x = x;
+    player.y = y;
+    player.bulletController = bulletController;
+    document.addEventListener('keyup', (e) => Player.keyup(e, Player));
+    document.addEventListener('keydown', (e) => Player.keydown(e, Player));
+
+    return player;
 }
