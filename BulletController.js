@@ -1,37 +1,30 @@
 import { createBullet } from "./Bullet.js";
 
-export default class BulletController {
-    bullets = [];
-    timeTillNextBullet = 0;
-    
-    constructor(canvas) {
-        this.canvas = canvas;
-    }
+let BulletController2 = {
+    bullets: [],
+    canvas: null,
+    timeTillNextBullet: 0,
 
-    shoot(x, y, speed, damage, delay) {
+    shoot: function (x, y, speed, damage, delay) {
         if (this.timeTillNextBullet <= 0) {
-            // if (this.bullets.length < 5) {
-            //     this.bullets.push(new Bullet(x, y, speed, damage));
-            // }
             let newBullet = createBullet(x, y, speed, damage);
             this.bullets.push(newBullet);
             this.timeTillNextBullet = delay;
         }
         this.timeTillNextBullet--;
-    }
+    },
 
-    draw(context) {
+    draw: function (context) {
         this.bullets.forEach(bullet => {
-            console.log("Shooting");
             if (this.isBulletOffScreen(bullet)) {
                 const index = this.bullets.indexOf(bullet);
                 this.bullets.splice(index, 1);
             }
             bullet.draw(context)}
         );
-    }
+    },
 
-    collideWith(enemy) {
+    collideWith: function (enemy) {
         return this.bullets.some(bullet => {
             if (bullet.collideWith(enemy)) {
                 const index = this.bullets.indexOf(bullet);
@@ -40,9 +33,15 @@ export default class BulletController {
             }
             return false;
         })
-    }
+    },
 
-    isBulletOffScreen(bullet) {
+    isBulletOffScreen: function (bullet) {
         return bullet.y <= -bullet.height;
     }
+}
+
+export function createBulletController(canvas) {
+    let bulleController = Object.create(BulletController2);
+    bulleController.canvas = canvas;
+    return bulleController;
 }
